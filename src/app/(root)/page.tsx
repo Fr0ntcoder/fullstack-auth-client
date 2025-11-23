@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 import { buttonVariants } from '@/shared/components/ui/Button'
+import { APP_URL } from '@/shared/constants'
 
 export default function HomePage() {
 	return (
@@ -8,7 +9,10 @@ export default function HomePage() {
 			<h1 className='mb-5 text-center text-4xl font-bold'>
 				Главная страница
 			</h1>
-			<Link href='/auth/login' className={buttonVariants({ size: 'lg' })}>
+			<Link
+				href={APP_URL.AUTH}
+				className={buttonVariants({ size: 'lg' })}
+			>
 				Войти в аккаунт
 			</Link>
 		</div>
