@@ -2,9 +2,9 @@
 
 import { type PropsWithChildren } from 'react'
 
-import { ThemeProvider } from '@/shared/providers'
-
 import { TanstackProvider } from './TanstackProvider'
+import { ThemeProvider } from './ThemeProvider'
+import { ToastProvider } from './ToastProvider'
 
 export const Provider = ({ children }: PropsWithChildren<unknown>) => {
 	return (
@@ -14,6 +14,7 @@ export const Provider = ({ children }: PropsWithChildren<unknown>) => {
 				defaultTheme='light'
 				disableTransitionOnChange
 			>
+				<ToastProvider />
 				{children}
 			</ThemeProvider>
 		</TanstackProvider>
