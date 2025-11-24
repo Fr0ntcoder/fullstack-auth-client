@@ -7,7 +7,8 @@ import ReCAPTCHA from 'react-google-recaptcha'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
-import { RegisterSchema, TypeRegisterShema } from '@/features/auth/schemes'
+import { useRegisterMutation } from '@/features/auth/hooks'
+import { RegisterSchema, TypeRegisterSchema } from '@/features/auth/schemes'
 
 import {
 	Button,
@@ -23,7 +24,7 @@ import {
 export const RegisterForm = () => {
 	const { theme } = useTheme()
 	const [recaptcha, setRecaptcha] = useState<string | null>(null)
-	const form = useForm<TypeRegisterShema>({
+	const form = useForm<TypeRegisterSchema>({
 		mode: 'onChange',
 		resolver: zodResolver(RegisterSchema),
 		defaultValues: {
@@ -33,10 +34,10 @@ export const RegisterForm = () => {
 			passwordRepeat: ''
 		}
 	})
-
-	const onSubmit = (data: TypeRegisterShema) => {
+	const { register, isLoadingRegister } = useRegisterMutation()
+	const onSubmit = (data: TypeRegisterSchema) => {
 		recaptcha
-			? console.log(data, 'data')
+			? register({ data, recaptcha })
 			: toast.error('Пройдите reCAPTCHA')
 	}
 	return (
@@ -52,7 +53,11 @@ export const RegisterForm = () => {
 						<FormItem>
 							<FormLabel>Имя</FormLabel>
 							<FormControl>
-								<Input placeholder='Введите имя' {...field} />
+								<Input
+									placeholder='Введите имя'
+									disabled={isLoadingRegister}
+									{...field}
+								/>
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -68,6 +73,7 @@ export const RegisterForm = () => {
 								<Input
 									type='email'
 									placeholder='Введите email'
+									disabled={isLoadingRegister}
 									{...field}
 								/>
 							</FormControl>
@@ -85,6 +91,7 @@ export const RegisterForm = () => {
 								<Input
 									type='password'
 									placeholder='******'
+									disabled={isLoadingRegister}
 									{...field}
 								/>
 							</FormControl>
@@ -102,6 +109,7 @@ export const RegisterForm = () => {
 								<Input
 									type='password'
 									placeholder='******'
+									disabled={isLoadingRegister}
 									{...field}
 								/>
 							</FormControl>
@@ -118,7 +126,9 @@ export const RegisterForm = () => {
 						theme={theme === 'dark' ? 'dark' : 'light'}
 					/>
 				</div>
-				<Button type='submit'>Создать аккаунт</Button>
+				<Button type='submit' disabled={isLoadingRegister}>
+					Создать аккаунт
+				</Button>
 			</form>
 		</Form>
 	)

@@ -7,6 +7,7 @@ import ReCAPTCHA from 'react-google-recaptcha'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
+import { useLoginMutation } from '@/features/auth/hooks'
 import {
 	LoginSchema,
 	TypeLoginSchema
@@ -30,15 +31,15 @@ export const LoginForm = () => {
 		mode: 'onChange',
 		resolver: zodResolver(LoginSchema),
 		defaultValues: {
-			name: '',
 			email: '',
 			password: ''
 		}
 	})
+	const { login, isLoadingLogin } = useLoginMutation()
 
 	const onSubmit = (data: TypeLoginSchema) => {
 		recaptcha
-			? console.log(data, 'data')
+			? login({ data, recaptcha })
 			: toast.error('Пройдите reCAPTCHA')
 	}
 	return (
@@ -49,19 +50,6 @@ export const LoginForm = () => {
 			>
 				<FormField
 					control={form.control}
-					name='name'
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>Имя</FormLabel>
-							<FormControl>
-								<Input placeholder='Введите имя' {...field} />
-							</FormControl>
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
-				<FormField
-					control={form.control}
 					name='email'
 					render={({ field }) => (
 						<FormItem>
@@ -70,6 +58,7 @@ export const LoginForm = () => {
 								<Input
 									type='email'
 									placeholder='Введите email'
+									disabled={isLoadingLogin}
 									{...field}
 								/>
 							</FormControl>
@@ -87,6 +76,7 @@ export const LoginForm = () => {
 								<Input
 									type='password'
 									placeholder='******'
+									disabled={isLoadingLogin}
 									{...field}
 								/>
 							</FormControl>
@@ -103,7 +93,9 @@ export const LoginForm = () => {
 						theme={theme === 'dark' ? 'dark' : 'light'}
 					/>
 				</div>
-				<Button type='submit'>Войти</Button>
+				<Button type='submit' disabled={isLoadingLogin}>
+					Войти
+				</Button>
 			</form>
 		</Form>
 	)
