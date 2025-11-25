@@ -1,11 +1,11 @@
 import { Metadata } from 'next'
 
-import { AuthWrapper } from '@/features/auth/components/AuthWrapper'
+import { Auth } from '@/features/auth/components'
 
 export const metadata: Metadata = {
 	title: 'Действие с аккаунтом'
 }
 
 export default function LoginPage() {
-	return <AuthWrapper />
+	return <Auth />
 }

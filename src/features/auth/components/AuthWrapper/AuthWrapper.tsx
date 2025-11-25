@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { ReactNode } from 'react'
 
 import {
 	Card,
@@ -11,28 +11,33 @@ import {
 	CardTitle
 } from '@/shared/components/ui'
 
-import { AUTH_DATA } from '../../constants/auth.data'
-import { LoginForm } from '../LoginForm'
-import { RegisterForm } from '../RegisterForm'
-import { SocialButton } from '../SocialButton'
+interface Props {
+	title: string
+	description: string
+	bottomText?: string
+	bottomLinkText: string
+	onHandler?: () => void
+	children: ReactNode
+}
 
-export const AuthWrapper = () => {
-	const [type, setType] = useState<'login' | 'register'>('register')
-
-	const onToggle = () => setType(type === 'login' ? 'register' : 'login')
+export const AuthWrapper = ({
+	title,
+	description,
+	bottomText,
+	bottomLinkText,
+	onHandler,
+	children
+}: Props) => {
 	return (
 		<Card className='w-full max-w-md'>
 			<CardHeader>
-				<CardTitle>{AUTH_DATA.title[type]}</CardTitle>
-				<CardDescription>{AUTH_DATA.description[type]}</CardDescription>
+				<CardTitle>{title}</CardTitle>
+				<CardDescription>{description}</CardDescription>
 			</CardHeader>
-			<CardContent>
-				<SocialButton className='mb-5' />
-				{type === 'login' ? <LoginForm /> : <RegisterForm />}
-			</CardContent>
+			<CardContent>{children}</CardContent>
 			<CardFooter className='flex items-center justify-center gap-2'>
-				{AUTH_DATA.footer[type]}
-				<a onClick={onToggle}>{AUTH_DATA.link[type]}</a>
+				{bottomText}
+				<a onClick={onHandler}>{bottomLinkText}</a>
 			</CardFooter>
 		</Card>
 	)

@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
+import { toast } from 'sonner'
 
 import { toastMessageError } from '@/shared/utils'
 
@@ -14,8 +15,10 @@ export function useRegisterMutation() {
 		mutationKey: ['register'],
 		mutationFn: ({ data, recaptcha }: IRegisterMutation) =>
 			authService.register(data, recaptcha),
-		onSuccess(data: any) {
-			toastMessageError(data)
+		onSuccess() {
+			toast.success('Регистрация прошла успешно', {
+				description: 'Проверьте свою почту и поддтвердите email'
+			})
 		},
 		onError(error) {
 			toastMessageError(error)

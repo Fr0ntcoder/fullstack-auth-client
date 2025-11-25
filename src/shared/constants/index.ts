@@ -1,8 +1,8 @@
 export const APP_URL = {
 	AUTH: '/auth',
-  DASHBOARD: {
+	DASHBOARD: {
 		SETTINGS: '/dashboard/settings'
-	},
+	}
 }
 
 export const API_URL = {
@@ -10,7 +10,10 @@ export const API_URL = {
 		LOGOUT: '/auth/logout',
 		REGISTER: '/auth/register',
 		LOGIN: '/auth/login',
-		EMAIL: '/auth/email-confirmation'
+		EMAIL: '/auth/email-confirmation',
+		RESET_PASSWORD: '/auth/password-recovery/reset',
+		NEW_PASSWORD: (token: string | null) =>
+			`/auth/password-recovery/new/${token}`
 	},
 	OAUTH: (text: string) => `/auth/oauth/connect/${text}`
 }
