@@ -1,15 +1,16 @@
 export const APP_URL = {
-	AUTH: '/auth'
+	AUTH: '/auth',
+  DASHBOARD: {
+		SETTINGS: '/dashboard/settings'
+	},
 }
 
 export const API_URL = {
 	AUTH: {
 		LOGOUT: '/auth/logout',
 		REGISTER: '/auth/register',
-		LOGIN: '/auth/login'
+		LOGIN: '/auth/login',
+		EMAIL: '/auth/email-confirmation'
 	},
-	DASHBOARD: {
-		SETTINGS: '/dashboard/settings'
-	},
-  OAUTH: (text: string) => `/auth/oauth/connect/${text}`
+	OAUTH: (text: string) => `/auth/oauth/connect/${text}`
 }

@@ -4,7 +4,7 @@ import { toast } from 'sonner'
 
 import { TypeLoginSchema } from '@/features/auth/schemes/login.schema'
 
-import { API_URL } from '@/shared/constants'
+import { APP_URL } from '@/shared/constants'
 import { toastMessageError } from '@/shared/utils'
 
 import { authService } from '../services'
@@ -24,7 +24,7 @@ export function useLoginMutation() {
 				toastMessageError(data)
 			} else {
 				toast.success('Вы успешно вошли в аккаунт')
-				router.push(API_URL.DASHBOARD.SETTINGS)
+				router.push(APP_URL.DASHBOARD.SETTINGS)
 			}
 		},
 		onError(error) {
