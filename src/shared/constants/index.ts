@@ -15,5 +15,6 @@ export const API_URL = {
 		NEW_PASSWORD: (token: string | null) =>
 			`/auth/password-recovery/new/${token}`
 	},
+	PROFILE: '/users/profile',
 	OAUTH: (text: string) => `/auth/oauth/connect/${text}`
 }

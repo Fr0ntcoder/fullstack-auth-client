@@ -25,11 +25,11 @@ export interface IUser {
 	id: string
 	email: string
 	password: string
-	diplayName: string
+	displayName: string
 	picture: string
 	role: UserRole
 	isVerified: boolean
-	isTwoFactorEnabled: boolean
+	isTwoFaсtorAuth: boolean
 	method: AuthMethod
 	accounts: IAccount[]
 	createdAt: string

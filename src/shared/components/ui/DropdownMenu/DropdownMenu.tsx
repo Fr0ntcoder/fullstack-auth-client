@@ -28,6 +28,7 @@ function DropdownMenuTrigger({
 }: ComponentProps<typeof DropdownMenuPrimitive.Trigger>) {
 	return (
 		<DropdownMenuPrimitive.Trigger
+			className='outline-none'
 			data-slot='dropdown-menu-trigger'
 			{...props}
 		/>
