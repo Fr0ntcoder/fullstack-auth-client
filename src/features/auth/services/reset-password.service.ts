@@ -11,15 +11,20 @@ class ResetPasswordService {
 	public async reset(body: TypeResetPasswordSchema, recaptcha?: string) {
 		const headers = recaptcha ? { recaptcha } : undefined
 
-		const response = await api.post<IUser>(
-			API_URL.AUTH.RESET_PASSWORD,
-			body,
-			{
-				headers
-			}
-		)
+		try {
+			const response = await api.post<IUser>(
+				API_URL.AUTH.RESET_PASSWORD,
+				body,
+				{
+					headers
+				}
+			)
 
-		return response
+			return response
+		} catch (error) {
+			console.log(error)
+			throw error
+		}
 	}
 
 	public async new(
@@ -29,15 +34,20 @@ class ResetPasswordService {
 	) {
 		const headers = recaptcha ? { recaptcha } : undefined
 
-		const response = await api.post<IUser>(
-			API_URL.AUTH.NEW_PASSWORD(token),
-			body,
-			{
-				headers
-			}
-		)
+		try {
+			const response = await api.post<IUser>(
+				API_URL.AUTH.NEW_PASSWORD(token),
+				body,
+				{
+					headers
+				}
+			)
 
-		return response
+			return response
+		} catch (error) {
+			console.log(error)
+			throw error
+		}
 	}
 }
 

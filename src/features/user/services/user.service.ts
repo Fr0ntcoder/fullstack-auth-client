@@ -6,15 +6,25 @@ import { API_URL } from '@/shared/constants'
 
 class UserService {
 	public async findProfile() {
-		const response = await api.get<IUser>(API_URL.PROFILE)
+		try {
+			const response = await api.get<IUser>(API_URL.PROFILE)
 
-		return response
+			return response
+		} catch (error) {
+			console.log(error)
+			throw error
+		}
 	}
 
 	public async updateProfile(body: TypeSettingsSchemes) {
-		const response = await api.patch<IUser>(API_URL.PROFILE, body)
+		try {
+			const response = await api.patch<IUser>(API_URL.PROFILE, body)
 
-		return response
+			return response
+		} catch (error) {
+			console.log(error)
+			throw error
+		}
 	}
 }
 

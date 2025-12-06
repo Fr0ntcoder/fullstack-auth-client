@@ -9,33 +9,59 @@ class AuthService {
 	public async register(body: TypeRegisterSchema, recaptcha?: string) {
 		const headers = recaptcha ? { recaptcha } : undefined
 
-		const response = await api.post<IUser>(API_URL.AUTH.REGISTER, body, {
-			headers
-		})
+		try {
+			const response = await api.post<IUser>(
+				API_URL.AUTH.REGISTER,
+				body,
+				{
+					headers
+				}
+			)
 
-		return response
+			return response
+		} catch (error) {
+			console.log(error)
+			throw error
+		}
 	}
 
 	public async login(body: TypeLoginSchema, recaptcha?: string) {
 		const headers = recaptcha ? { recaptcha } : undefined
 
-		const response = await api.post<IUser>(API_URL.AUTH.LOGIN, body, {
-			headers
-		})
+		try {
+			const response = await api.post<IUser>(API_URL.AUTH.LOGIN, body, {
+				headers
+			})
 
-		return response
+			return response
+		} catch (error) {
+			console.log(error)
+			throw error
+		}
 	}
 
 	public async logout() {
-		const response = await api.post(API_URL.AUTH.LOGOUT)
+		try {
+			const response = await api.post(API_URL.AUTH.LOGOUT)
 
-		return response
+			return response
+		} catch (error) {
+			console.log(error)
+			throw error
+		}
 	}
 
 	public async oauthByProvider(provider: TypeAuthProvider) {
-		const response = await api.get<{ url: string }>(API_URL.OAUTH(provider))
+		try {
+			const response = await api.get<{ url: string }>(
+				API_URL.OAUTH(provider)
+			)
 
-		return response
+			return response
+		} catch (error) {
+			console.log(error)
+			throw error
+		}
 	}
 }
 

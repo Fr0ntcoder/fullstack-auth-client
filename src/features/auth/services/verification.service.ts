@@ -3,9 +3,14 @@ import { API_URL } from '@/shared/constants'
 
 class VerificationService {
 	public async newVerification(token: string | null) {
-		const response = await api.post(API_URL.AUTH.EMAIL, { token })
+		try {
+			const response = await api.post(API_URL.AUTH.EMAIL, { token })
 
-		return response
+			return response
+		} catch (error) {
+			console.log(error)
+			throw error
+		}
 	}
 }
 
